@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IQCareKAWEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="mst_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserLastName" Type="varchar" MaxLength="50" />
+          <Property Name="UserFirstName" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="DeleteFlag" Type="int" />
+          <Property Name="OperatorID" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="EmployeeId" Type="int" />
+        </EntityType>
+        <Function Name="pr_Billing_getOpenBills" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LocationID" Type="int" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="filter" Type="varchar" Mode="In" />
+          <Parameter Name="DateFrom" Type="datetime" Mode="In" />
+          <Parameter Name="DateTo" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="pr_Billing_GetPatientsBilItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LocationID" Type="int" Mode="In" />
+          <Parameter Name="PatientID" Type="int" Mode="In" />
+          <Parameter Name="BillID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="IQCareKAWEModelStoreContainer">
+          <EntitySet Name="mst_User" EntityType="Self.mst_User" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IQCareKAWEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="IQCareKAWEEntities1" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="pr_Billing_GetPatientsBilItems" ReturnType="Collection(IQCareKAWEModel.pr_Billing_GetPatientsBilItems_Result)">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="PatientID" Mode="In" Type="Int32" />
+            <Parameter Name="BillID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EMRSearch" ReturnType="Collection(IQCareKAWEModel.pr_Billing_GetPatientsBilItems_Result)">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="PatientID" Mode="In" Type="Int32" />
+            <Parameter Name="BillID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="mst_User" EntityType="IQCareKAWEModel.mst_User" />
+          <FunctionImport Name="pr_Billing_getOpenBills" ReturnType="Collection(IQCareKAWEModel.pr_Billing_getOpenBills_Result)">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="filter" Mode="In" Type="String" />
+            <Parameter Name="DateFrom" Mode="In" Type="DateTime" />
+            <Parameter Name="DateTo" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="pr_Billing_getOpenBills1" ReturnType="Collection(IQCareKAWEModel.pr_Billing_getOpenBills1_Result)">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="filter" Mode="In" Type="String" />
+            <Parameter Name="DateFrom" Mode="In" Type="DateTime" />
+            <Parameter Name="DateTo" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="pr_Billing_GetPatientsBilItems_Result">
+          <Property Type="Int32" Name="BillID" Nullable="true" />
+          <Property Type="Int32" Name="billItemID" Nullable="false" />
+          <Property Type="Int32" Name="PatientID" Nullable="true" />
+          <Property Type="Int32" Name="LocationID" Nullable="false" />
+          <Property Type="DateTime" Name="BillItemDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ItemName" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="ItemId" Nullable="false" />
+          <Property Type="Int32" Name="ItemType" Nullable="false" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Int32" Name="PaymentType" Nullable="true" />
+          <Property Type="Int32" Name="PaymentName" Nullable="true" />
+          <Property Type="Decimal" Name="SellingPrice" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Discount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="29" Scale="2" />
+          <Property Type="Int32" Name="PaymentStatus" Nullable="false" />
+          <Property Type="Boolean" Name="PayItem" Nullable="true" />
+          <Property Type="Int32" Name="ServiceStatus" Nullable="false" />
+          <Property Type="Int32" Name="ModuleId" Nullable="true" />
+          <Property Type="String" Name="CostCenterName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ItemTypeName" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="ItemSourceReferenceID" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="mst_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeleteFlag" Type="Int32" />
+          <Property Name="OperatorID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="EmployeeId" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="pr_Billing_getOpenBills_Result">
+          <Property Type="Int32" Name="PatientID" Nullable="true" />
+          <Property Type="String" Name="ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DOB" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="BillAmount" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="OutStandingAmount" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="Discount" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="DateTime" Name="BillDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_Billing_getOpenBills1_Result">
+          <Property Type="Int32" Name="PatientID" Nullable="true" />
+          <Property Type="String" Name="ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DOB" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="BillAmount" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="OutStandingAmount" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="Discount" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="DateTime" Name="BillDate" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IQCareKAWEModelStoreContainer" CdmEntityContainer="IQCareKAWEEntities1" >
+          <FunctionImportMapping FunctionImportName="pr_Billing_GetPatientsBilItems" FunctionName="IQCareKAWEModel.Store.pr_Billing_GetPatientsBilItems">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IQCareKAWEModel.pr_Billing_GetPatientsBilItems_Result">
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
+                <ScalarProperty Name="billItemID" ColumnName="billItemID" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="BillItemDate" ColumnName="BillItemDate" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="PaymentName" ColumnName="PaymentName" />
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="PayItem" ColumnName="PayItem" />
+                <ScalarProperty Name="ServiceStatus" ColumnName="ServiceStatus" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+                <ScalarProperty Name="CostCenterName" ColumnName="CostCenterName" />
+                <ScalarProperty Name="ItemTypeName" ColumnName="ItemTypeName" />
+                <ScalarProperty Name="ItemSourceReferenceID" ColumnName="ItemSourceReferenceID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EMRSearch" FunctionName="IQCareKAWEModel.Store.pr_Billing_GetPatientsBilItems">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IQCareKAWEModel.pr_Billing_GetPatientsBilItems_Result">
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
+                <ScalarProperty Name="billItemID" ColumnName="billItemID" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="BillItemDate" ColumnName="BillItemDate" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="PaymentName" ColumnName="PaymentName" />
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="PayItem" ColumnName="PayItem" />
+                <ScalarProperty Name="ServiceStatus" ColumnName="ServiceStatus" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+                <ScalarProperty Name="CostCenterName" ColumnName="CostCenterName" />
+                <ScalarProperty Name="ItemTypeName" ColumnName="ItemTypeName" />
+                <ScalarProperty Name="ItemSourceReferenceID" ColumnName="ItemSourceReferenceID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="mst_User">
+            <EntityTypeMapping TypeName="IQCareKAWEModel.mst_User">
+              <MappingFragment StoreEntitySet="mst_User">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
+                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_Billing_getOpenBills1" FunctionName="IQCareKAWEModel.Store.pr_Billing_getOpenBills">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IQCareKAWEModel.pr_Billing_getOpenBills1_Result">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="BillAmount" ColumnName="BillAmount" />
+                <ScalarProperty Name="OutStandingAmount" ColumnName="OutStandingAmount" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
